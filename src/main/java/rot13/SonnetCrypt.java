@@ -58,7 +58,7 @@ public class SonnetCrypt {
         return destFile;
     }
 
-    static Scanner getScanner(File origFile) {
+    private static Scanner getScanner(File origFile) {
         Scanner scanner = null;
         try {
             scanner = new Scanner(origFile);

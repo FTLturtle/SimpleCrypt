@@ -3,6 +3,7 @@ package rot13;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import static org.junit.Assert.*;
@@ -20,8 +21,8 @@ public class SonnetCryptTest {
         // Then
         File origFile = new File("src/resource/sonnet18.txt");
         File destFile = new File("src/resource/sonnet18.enc");
-        Scanner origScanner = SonnetCrypt.getScanner(origFile);
-        Scanner destScanner = SonnetCrypt.getScanner(destFile);
+        Scanner origScanner = getScanner(origFile);
+        Scanner destScanner = getScanner(destFile);
         while (origScanner.hasNextLine()) {
             assertNotEquals(origScanner.nextLine(), destScanner.nextLine());
         }
@@ -38,8 +39,8 @@ public class SonnetCryptTest {
         // Then
         File origFile = new File("src/resource/sonnet18.txt");
         File destFile = new File("src/resource/sonnet18.enc");
-        Scanner origScanner = SonnetCrypt.getScanner(origFile);
-        Scanner destScanner = SonnetCrypt.getScanner(destFile);
+        Scanner origScanner = getScanner(origFile);
+        Scanner destScanner = getScanner(destFile);
         while (origScanner.hasNextLine()) {
             assertNotEquals(origScanner.nextLine(), destScanner.nextLine());
         }
@@ -56,8 +57,8 @@ public class SonnetCryptTest {
         // Then
         File origFile = new File("src/resource/sonnet18.txt");
         File destFile = new File("src/resource/sonnet18.enc");
-        Scanner origScanner = SonnetCrypt.getScanner(origFile);
-        Scanner destScanner = SonnetCrypt.getScanner(destFile);
+        Scanner origScanner = getScanner(origFile);
+        Scanner destScanner = getScanner(destFile);
         while (origScanner.hasNextLine()) {
             assertEquals(origScanner.nextLine(), destScanner.nextLine());
         }
@@ -75,8 +76,8 @@ public class SonnetCryptTest {
         // Then
         File origFile = new File("src/resource/sonnet18.txt");
         File destFile = new File("src/resource/decryptedSonnet18.txt");
-        Scanner origScanner = SonnetCrypt.getScanner(origFile);
-        Scanner destScanner = SonnetCrypt.getScanner(destFile);
+        Scanner origScanner = getScanner(origFile);
+        Scanner destScanner = getScanner(destFile);
         while (origScanner.hasNextLine()) {
             assertEquals(origScanner.nextLine(), destScanner.nextLine());
         }
@@ -94,8 +95,8 @@ public class SonnetCryptTest {
         // Then
         File origFile = new File("src/resource/sonnet18.txt");
         File destFile = new File("src/resource/decryptedSonnet18.txt");
-        Scanner origScanner = SonnetCrypt.getScanner(origFile);
-        Scanner destScanner = SonnetCrypt.getScanner(destFile);
+        Scanner origScanner = getScanner(origFile);
+        Scanner destScanner = getScanner(destFile);
         while (origScanner.hasNextLine()) {
             assertEquals(origScanner.nextLine(), destScanner.nextLine());
         }
@@ -113,10 +114,21 @@ public class SonnetCryptTest {
         // Then
         File origFile = new File("src/resource/sonnet18.txt");
         File destFile = new File("src/resource/decryptedSonnet18.txt");
-        Scanner origScanner = SonnetCrypt.getScanner(origFile);
-        Scanner destScanner = SonnetCrypt.getScanner(destFile);
+        Scanner origScanner = getScanner(origFile);
+        Scanner destScanner = getScanner(destFile);
         while (origScanner.hasNextLine()) {
             assertEquals(origScanner.nextLine(), destScanner.nextLine());
         }
+    }
+
+    @SuppressWarnings("Duplicates")
+    private static Scanner getScanner(File origFile) {
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(origFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return scanner;
     }
 }
