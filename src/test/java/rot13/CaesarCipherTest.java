@@ -1,10 +1,10 @@
 package rot13;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
-public class ROT13Test {
-
+public class CaesarCipherTest {
 
     @Test
     public void rotateStringTest0() {
@@ -13,7 +13,7 @@ public class ROT13Test {
         String s2 = "ABCDEF";
 
         // When
-        ROT13 cipher = new ROT13();
+        CaesarCipher cipher = new CaesarCipher(1);
         String actual = cipher.rotate(s1, 'A');
 
         // Then
@@ -27,7 +27,7 @@ public class ROT13Test {
         String s2 = "DEFABC";
 
         // When
-        ROT13 cipher = new ROT13();
+        CaesarCipher cipher = new CaesarCipher(1);
         String actual = cipher.rotate(s1, 'D');
 
         // Then
@@ -41,7 +41,7 @@ public class ROT13Test {
         String s2 = "NOPQRSTUVWXYZABCDEFGHIJKLM";
 
         // When
-        ROT13 cipher = new ROT13();
+        CaesarCipher cipher = new CaesarCipher(1);
         String actual = cipher.rotate(s1, 'N');
         System.out.println(s1);
         System.out.println(actual);
@@ -52,7 +52,7 @@ public class ROT13Test {
     @Test
     public void cryptTest1() {
         // Given
-        ROT13 cipher = new ROT13('a', 'n');
+        CaesarCipher cipher = new CaesarCipher(13);
 
         String Q1 = "Why did the chicken cross the road?";
         String A1 = "Jul qvq gur puvpxra pebff gur ebnq?";
@@ -77,7 +77,7 @@ public class ROT13Test {
     @Test
     public void cryptTest2() {
         // Given
-        ROT13 cipher = new ROT13('a', 'n');
+        CaesarCipher cipher = new CaesarCipher(13);
 
         String Q1 = "Why did the chicken cross the road?";
         System.out.println(Q1);
@@ -87,6 +87,27 @@ public class ROT13Test {
         System.out.println(actual);
         // Then
         assertEquals(Q1, actual);
+    }
+
+    @Test
+    public void cryptTest3() {
+        // Given
+        CaesarCipher cipher = new CaesarCipher(18);
+
+        String Q1 = "Why did the chicken cross the road?";
+        String A1 = "Ozq vav lzw uzaucwf ujgkk lzw jgsv?";
+
+        // When
+        String actual = cipher.encrypt(Q1);
+
+        // Then
+        assertEquals(A1, actual);
+
+        // When
+        String actual2 = cipher.decrypt(actual);
+
+        // Then
+        assertEquals(Q1, actual2);
     }
 
 }
