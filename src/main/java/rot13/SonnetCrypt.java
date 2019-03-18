@@ -19,7 +19,7 @@ public class SonnetCrypt {
     }
 
     public void decryptSonnet() {
-        modifyFileContentsAndSaveInNewFile("src/resource/sonnet18.enc", "src/resource/DecryptedSonnet18.txt", caesarCipher::decrypt);
+        modifyFileContentsAndSaveInNewFile("src/resource/sonnet18.enc", "src/resource/decryptedSonnet18.txt", caesarCipher::decrypt);
     }
 
     private static void modifyFileContentsAndSaveInNewFile(String sourcePathName, String destinationPathName, Function<String, String> function) {
@@ -66,6 +66,12 @@ public class SonnetCrypt {
             e.printStackTrace();
         }
         return scanner;
+    }
+
+    public static void main(String[] args) {
+        SonnetCrypt sonnetCrypt = new SonnetCrypt(17);
+        sonnetCrypt.encryptSonnet();
+        sonnetCrypt.decryptSonnet();
     }
 
 }
