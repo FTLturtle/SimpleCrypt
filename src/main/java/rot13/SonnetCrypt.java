@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.function.Function;
 
 public class SonnetCrypt {
-    CaesarCipher caesarCipher;
+    private CaesarCipher caesarCipher;
 
     public SonnetCrypt(int shift) {
         caesarCipher = new CaesarCipher(shift);
@@ -58,7 +58,7 @@ public class SonnetCrypt {
         return destFile;
     }
 
-    private static Scanner getScanner(File origFile) {
+    static Scanner getScanner(File origFile) {
         Scanner scanner = null;
         try {
             scanner = new Scanner(origFile);
@@ -67,11 +67,4 @@ public class SonnetCrypt {
         }
         return scanner;
     }
-
-    public static void main(String[] args) {
-        SonnetCrypt sonnetCrypt = new SonnetCrypt(17);
-        sonnetCrypt.encryptSonnet();
-        sonnetCrypt.decryptSonnet();
-    }
-
 }
