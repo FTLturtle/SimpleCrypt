@@ -1,3 +1,5 @@
+package rot13;
+
 import static java.lang.Character.isLowerCase;
 import static java.lang.Character.isUpperCase;
 import static java.lang.Character.toLowerCase;
@@ -24,7 +26,7 @@ public class ROT13  {
         return text;
     }
 
-    public static String rotate(String s, Character c) {
+    public String rotate(String s, Character c) {
 
         return "";
     }
