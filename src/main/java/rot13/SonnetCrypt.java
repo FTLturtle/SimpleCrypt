@@ -15,26 +15,43 @@ public class SonnetCrypt {
     }
 
     public void encryptSonnet() {
-        modifyFileContentsAndSaveInNewFile("src/resource/sonnet18.txt", "src/resource/sonnet18.enc", caesarCipher::encrypt);
+        getFileContentsApplyFunctionSaveInNewFile("src/resource/sonnet18.txt", "src/resource/sonnet18.enc", caesarCipher::encrypt);
     }
 
     public void decryptSonnet() {
-        modifyFileContentsAndSaveInNewFile("src/resource/sonnet18.enc", "src/resource/decryptedSonnet18.txt", caesarCipher::decrypt);
+        getFileContentsApplyFunctionSaveInNewFile("src/resource/sonnet18.enc", "src/resource/decryptedSonnet18.txt", caesarCipher::decrypt);
     }
 
-    private static void modifyFileContentsAndSaveInNewFile(String sourcePathName, String destinationPathName, Function<String, String> function) {
+    private static void getFileContentsApplyFunctionSaveInNewFile(String sourcePathName, String destinationPathName, Function<String, String> function) {
+        String fileContents = getStringFromFile(sourcePathName);
+        String modifiedFileContents = function.apply(fileContents);
+        writeStringToFile(destinationPathName, modifiedFileContents);
+    }
+
+    private static String getStringFromFile(String sourcePathName){
         File origFile = new File(sourcePathName);
         Scanner scanner = getScanner(origFile);
-
-        File destFile = createFile(destinationPathName);
-
         StringBuilder stringBuilder = new StringBuilder();
         while (scanner.hasNextLine()) {
-            stringBuilder.append(function.apply(scanner.nextLine())).append('\n');
+            stringBuilder.append(scanner.nextLine()).append('\n');
         }
+        return stringBuilder.toString();
+    }
 
+    private static Scanner getScanner(File origFile) {
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(origFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return scanner;
+    }
+
+    private static void writeStringToFile(String destinationPathName, String modifiedFileContents) {
+        File destFile = createFile(destinationPathName);
         PrintWriter writer = getPrintWriter(destFile);
-        writer.print(stringBuilder.toString());
+        writer.print(modifiedFileContents);
         writer.close();
     }
 
@@ -58,13 +75,5 @@ public class SonnetCrypt {
         return destFile;
     }
 
-    private static Scanner getScanner(File origFile) {
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(origFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return scanner;
-    }
+
 }
